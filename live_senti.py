@@ -10,11 +10,14 @@ import re
 # import nltk
 # nltk.download('punkt')
 
-ckey = 'aTbi8IXuT8SaD1GUqJ1HDb4d9'
-csecret = 'B8vzmxyeDI9dqFPsmyJA4x7U6CweKJoGQEZwO2TrDMQ1mmVM7N'
-atoken = '1119106171497922561-XzMLFBxeVdjGbjmdZk6BO2AuCwN2Ky'
-asecret = 'zuyBcb6Zapwtbs5vcpgp8v4uPUXT3lqX4mWWLkGRrxQVU'
+# These keys and token can be obtained easily using twitter developer account
+ckey = 'your ckey'
+csecret = 'your csecret key'
+atoken = 'your account token'
+asecret = 'your secret token'
 
+"""Tag for analysis"""
+tag = 'place your tag here'
 
 def calctime(a):
     return time.time()-a
@@ -67,6 +70,7 @@ class listener(StreamListener):
         if axislimit-positive < 3 or axislimit-abs(negative) < 3:
             axislimit += 10
         plt.axis([0, timelimit, -axislimit, axislimit])
+        plt.title('Live Sentiment analysis of ' + tag)
         plt.xlabel('Time')
         plt.ylabel('Sentiment')
         plt.plot([t], [positive], 'go', [t], [negative], 'ro', [t], [compound], 'bo')
@@ -82,5 +86,5 @@ auth = OAuthHandler(ckey,csecret)
 auth.set_access_token(atoken,asecret)
 
 twitterStream = Stream(auth, listener())
-twitterStream.filter(track=["BJP"])
+twitterStream.filter(track=[tag])
 
